@@ -76,8 +76,6 @@ export default function ChatBox() {
     }
   };
 
-  console.log(constantData[current].prompt, "video");
-
   const clone = async (audio: string) => {
     try {
       const response = await fetch("/api/clone", {

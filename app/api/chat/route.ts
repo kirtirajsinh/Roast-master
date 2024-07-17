@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     prompt: messages,
     temperature: 0.6,
     max_new_tokens: 50,
-    prompt_template: `<s>[INST] ${promptTemplate} [/INST] `,
+    prompt_template: `<s><s>[INST] ${promptTemplate}\n\n[INST] ${messages} [/INST] `,
   };
 
   let story = "";
@@ -24,6 +24,8 @@ export async function POST(req: Request) {
   )) {
     story += event;
   }
+
+  story = story.trim();
 
   console.log(story, "story");
 

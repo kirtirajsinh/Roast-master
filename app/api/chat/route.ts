@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   console.log(messages, "messages");
 
   const input = {
-    top_k: 50,
+    top_k: 100,
     top_p: 0.9,
     prompt: messages,
     temperature: 0.6,

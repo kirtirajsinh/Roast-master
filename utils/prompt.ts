@@ -9,6 +9,7 @@ export const constantData = [
       "https://bafkreie37mrlpb3gwhjgjubnronpwqahqm2aolvi26spccm6a76rqclt2u.ipfs.w3s.link/",
     video:
       "https://bafybeibnzulx5k7fjn5asgvfdfwneao4awwg4jfizwjltspgmcx2pvfpmq.ipfs.w3s.link/biden%20voiceless%20(online-video-cutter.com)%2010s.mp4",
+    voice_id: "DS3oUS9NQdqBjSUGSWVm",
   },
   {
     id: 2,
@@ -17,8 +18,10 @@ export const constantData = [
     voice:
       "https://bafybeiglmdeiozqoocmpdo3ip2om6aypaobirfve3dh3p5rfxmxancsgme.ipfs.w3s.link/23%20-%20The%20Network%20State%20Conference%202023%20-%20Dan%20Romero%20-%20Farcaster_%5Bcut_174sec%5D.mp3",
     video:
-      "https://bafybeidrda562scvr4z36maqsl7mzy45ob2g6tmow6nobof5oxx7eaqjpy.ipfs.w3s.link/dan%20clip.mp4",
+      "https://bafybeia2vro7wvgzvfqxqniaozkjgtwe6fsca7ukr3ldpgdfycsleq753e.ipfs.w3s.link/output1.mp4",
     image:
       "https://bafybeicn5eyetiqpfpk3v5ams5twcqgg5et37a55rhpacws37vk3mzes5y.ipfs.w3s.link/dan%20romereo.png",
+
+    voice_id: "DS3oUS9NQdqBjSUGSWVm",
   },
 ];

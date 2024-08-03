@@ -45,6 +45,7 @@ export default function ChatBox() {
         }),
       });
       const data = await response.json();
+
       generateTTS(data);
       console.log(data, "data");
       setUserInput("");
@@ -57,19 +58,34 @@ export default function ChatBox() {
 
   const generateTTS = async (message: string) => {
     try {
-      const response = await fetch("/api/tts", {
+      // const response = await fetch("/api/tts", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     message,
+      //     voice: constantData[current].voice,
+      //   }),
+      // });
+      // const data = await response.json();
+      // console.log(data, "data");
+      const response = await fetch("/api/elevenlabs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message,
-          voice: constantData[current].voice,
+          voice_id: constantData[current].voice_id,
         }),
       });
+
       const data = await response.json();
+
       console.log(data, "data");
-      clone(data);
+
+      clone(data.publicUrl);
     } catch (err) {
       console.log(err, "err");
       setLoading(false);

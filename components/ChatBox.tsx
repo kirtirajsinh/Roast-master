@@ -34,21 +34,19 @@ export default function ChatBox() {
     if (!userInput) return;
     try {
       setLoading(true);
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: userInput,
-          promptTemplate: constantData[current].prompt,
-        }),
-      });
-      const data = await response.json();
+      // const response = await fetch("/api/chat", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     messages: userInput,
+      //     promptTemplate: constantData[current].prompt,
+      //   }),
+      // });
+      // const data = await response.json();
 
-      generateTTS(data);
-      console.log(data, "data");
-      setUserInput("");
+      generateTTS(userInput);
     } catch (err) {
       console.log(err, "err");
       setUserInput("");
@@ -108,6 +106,7 @@ export default function ChatBox() {
       console.log(data, "data");
       setVideoUrl(data); // Assuming the response contains a videoUrl
       setDialogOpen(true);
+      setUserInput("");
       setLoading(false);
     } catch (err) {
       console.log(err, "err");

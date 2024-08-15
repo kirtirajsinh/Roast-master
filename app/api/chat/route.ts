@@ -7,27 +7,26 @@ export async function POST(req: Request) {
 
   console.log(messages, "messages");
 
-  const input = {
-    top_k: 100,
-    top_p: 0.9,
-    prompt: messages,
-    temperature: 0.6,
-    max_new_tokens: 50,
-    prompt_template: `<s><s>[INST] ${promptTemplate}\n\n[INST] ${messages} [/INST] `,
-  };
+  const response = await fetch(
+    "https://0x768da699e7b40d6fa4660afefa33ef6ccc45749a.us.gaianet.network/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: [
+          { role: "system", content: `${promptTemplate}` },
+          { role: "user", content: `${messages}` },
+        ],
+        completion_tokens: 100,
+      }),
+    }
+  );
+  const data = await response.json();
 
-  let story = "";
+  console.log(data, "data");
 
-  for await (const event of replicate.stream(
-    "mistralai/mixtral-8x7b-instruct-v0.1",
-    { input }
-  )) {
-    story += event;
-  }
-
-  story = story.trim();
-
-  console.log(story, "story");
-
-  return NextResponse.json(story);
+  return NextResponse.json(data);
 }

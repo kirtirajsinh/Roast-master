@@ -34,19 +34,23 @@ export default function ChatBox() {
     if (!userInput) return;
     try {
       setLoading(true);
-      // const response = await fetch("/api/chat", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     messages: userInput,
-      //     promptTemplate: constantData[current].prompt,
-      //   }),
-      // });
-      // const data = await response.json();
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: userInput,
+          promptTemplate: constantData[current].prompt,
+        }),
+      });
+      const data = await response.json();
 
-      generateTTS(userInput);
+      // console.log(data, "data");
+      // console.log(data.choices[0].message.content, "data");
+      const savageReply = data.choices[0].message.content;
+
+      generateTTS(savageReply);
     } catch (err) {
       console.log(err, "err");
       setUserInput("");
@@ -147,10 +151,10 @@ export default function ChatBox() {
           onSubmit={handleSubmit}
           className="flex flex-col items-center w-full max-w-md space-y-4 mt-6"
         >
-          <input
+          <textarea
             className="w-full  p-2 border border-gray-300 rounded shadow-xl"
             value={userInput}
-            placeholder="Ask something..."
+            placeholder="Add your personality, work, hobbies, etc."
             onChange={(e) => setUserInput(e.target.value)}
             autoFocus
             required
@@ -160,7 +164,7 @@ export default function ChatBox() {
             disabled={loading}
             className="w-full p-2 text-white bg-blue-500 rounded hover:bg-blue-600"
           >
-            {loading ? "Loading..." : "Submit"}
+            {loading ? "Loading..." : "Roast"}
           </Button>
         </form>
       </div>

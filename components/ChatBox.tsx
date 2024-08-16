@@ -156,6 +156,7 @@ export default function ChatBox() {
             value={userInput}
             placeholder="Add your personality, work, hobbies, etc."
             onChange={(e) => setUserInput(e.target.value)}
+            disabled={loading}
             autoFocus
             required
           />

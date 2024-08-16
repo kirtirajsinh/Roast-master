@@ -11,5 +11,6 @@ export const constantData = [
       "https://bafybeicn5eyetiqpfpk3v5ams5twcqgg5et37a55rhpacws37vk3mzes5y.ipfs.w3s.link/dan%20romereo.png",
 
     voice_id: "DS3oUS9NQdqBjSUGSWVm",
+    name: "Dan Romereo ",
   },
 ];

@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { usePathname } from "next/navigation";
 
 export default function ChatBox() {
   const [userInput, setUserInput] = useState<string>("");
@@ -27,6 +28,7 @@ export default function ChatBox() {
   const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string>("");
+  const [predictionId, setPredictionId] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -108,10 +110,7 @@ export default function ChatBox() {
       });
       const data = await response.json();
       console.log(data, "data");
-      setVideoUrl(data); // Assuming the response contains a videoUrl
-      setDialogOpen(true);
-      setUserInput("");
-      setLoading(false);
+      setPredictionId(data);
     } catch (err) {
       console.log(err, "err");
       setLoading(false);
@@ -135,6 +134,34 @@ export default function ChatBox() {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  useEffect(() => {
+    if (!predictionId) {
+      return;
+    }
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/getprediction?id=${predictionId}`);
+        const data = await response.json();
+
+        if (data.status === "succeeded") {
+          setVideoUrl(data.output);
+          setDialogOpen(true);
+          clearInterval(interval);
+          setUserInput("");
+          setPredictionId("");
+        }
+      } catch (err) {
+        console.error(err);
+        clearInterval(interval);
+      } finally {
+        setLoading(false);
+      }
+    }, 3000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [predictionId]);
 
   return (
     <>

@@ -52,7 +52,7 @@ export default function ChatBox() {
       // console.log(data.choices[0].message.content, "data");
       const savageReply = data.choices[0].message.content;
 
-      generateTTS(savageReply);
+      await generateTTS(savageReply);
     } catch (err) {
       console.log(err, "err");
       setUserInput("");
@@ -89,7 +89,7 @@ export default function ChatBox() {
 
       console.log(data, "data");
 
-      clone(data.publicUrl);
+      await clone(data.publicUrl);
     } catch (err) {
       console.log(err, "err");
       setLoading(false);
@@ -150,11 +150,11 @@ export default function ChatBox() {
           clearInterval(interval);
           setUserInput("");
           setPredictionId("");
+          setLoading(false);
         }
       } catch (err) {
         console.error(err);
         clearInterval(interval);
-      } finally {
         setLoading(false);
       }
     }, 3000);

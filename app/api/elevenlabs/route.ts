@@ -7,12 +7,10 @@ export async function POST(req: Request) {
   const { message, voice_id } = body;
 
   if (!process.env.ELEVEN_LABS_API_KEYS)
-    return {
-      status: 500,
-      body: {
-        error: "No Eleven Labs API Keys Found",
-      },
-    };
+    return new Response(
+      JSON.stringify({ error: "No Eleven Labs API Keys Found" }),
+      { status: 500 }
+    );
   try {
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}?optimize_streaming_latency=0`,
@@ -54,11 +52,9 @@ export async function POST(req: Request) {
     const realPublicUrl = publicUrl.publicUrl;
     console.log(realPublicUrl, "realPublicUrl");
 
-    return new Response(JSON.stringify({ publicUrl: realPublicUrl }), {
-      status: 200,
-    });
+    return new Response(JSON.stringify({ publicUrl: realPublicUrl }));
   } catch (err) {
     console.log(err);
-    return new Response("Something went wrong");
+    return new Response("Something went wrong", { status: 500 });
   }
 }

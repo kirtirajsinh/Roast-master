@@ -118,6 +118,12 @@ export default function ChatBox() {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= 50) {
+      setUserInput(e.target.value);
+    }
+  };
+
   useEffect(() => {
     if (!api) {
       return;
@@ -137,6 +143,7 @@ export default function ChatBox() {
           <CarouselContent>
             {constantData.map((item, index) => (
               <CarouselItem key={item.id} className="">
+                <h1 className="text-xl font-bold mb-4">{item.name}</h1>
                 <Image
                   src={item.image}
                   alt={item.id.toString()}
@@ -154,8 +161,8 @@ export default function ChatBox() {
           <textarea
             className="w-full  p-2 border border-gray-300 rounded shadow-xl"
             value={userInput}
-            placeholder="Add your personality, work, hobbies, etc."
-            onChange={(e) => setUserInput(e.target.value)}
+            placeholder="Enter your personality, work, hobbies, or a line You want to raost "
+            onChange={handleInputChange}
             disabled={loading}
             autoFocus
             required

@@ -87,7 +87,7 @@ export default function ChatBox() {
 
       const data = await response.json();
 
-      console.log(data, "data");
+      // console.log(data, "data");
 
       await clone(data.publicUrl);
     } catch (err) {
@@ -109,7 +109,7 @@ export default function ChatBox() {
         }),
       });
       const data = await response.json();
-      console.log(data, "data");
+      // console.log(data, "data");
       setPredictionId(data);
     } catch (err) {
       console.log(err, "err");

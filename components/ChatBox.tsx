@@ -48,11 +48,10 @@ export default function ChatBox() {
       });
       const data = await response.json();
 
-      // console.log(data, "data");
+      console.log(data.content, "data from UI");
       // console.log(data.choices[0].message.content, "data");
-      const savageReply = data.choices[0].message.content;
 
-      await generateTTS(savageReply);
+      await generateTTS(data.content);
     } catch (err) {
       console.log(err, "err");
       setUserInput("");
@@ -151,6 +150,13 @@ export default function ChatBox() {
           setUserInput("");
           setPredictionId("");
           setLoading(false);
+        } else if (data.status === "failed") {
+          console.error("Prediction failed:", data);
+          clearInterval(interval);
+          setUserInput("");
+          setLoading(false);
+
+          // Optionally, you can set an error state or show an error message to the user
         }
       } catch (err) {
         console.error(err);

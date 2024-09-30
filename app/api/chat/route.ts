@@ -7,26 +7,49 @@ export async function POST(req: Request) {
 
   console.log(messages, "messages");
 
-  const response = await fetch(
-    "https://0x768da699e7b40d6fa4660afefa33ef6ccc45749a.us.gaianet.network/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: [
-          { role: "system", content: `${promptTemplate}` },
-          { role: "user", content: `${messages}` },
-        ],
-        completion_tokens: 100,
-      }),
+  const url =
+    "https://0x9b829bf1e151def03532ab355cdfe5cee001f4b0.us.gaianet.network/v1/chat/completions";
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      messages: [
+        { role: "system", content: `${promptTemplate}` },
+        { role: "user", content: `${messages}` },
+      ],
+    }),
+  };
+  try {
+    const response = await fetch(url, options);
+
+    console.log(response, "response");
+    const responseText = await response.text();
+    console.log(responseText, "responseText");
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("Error parsing JSON:", parseError);
+      console.log("Raw response:", responseText);
+      throw new Error("Invalid JSON response");
     }
-  );
-  const data = await response.json();
 
-  console.log(data, "data");
+    console.log(data, "data");
 
-  return NextResponse.json(data);
+    if (data?.choices?.[0]?.message?.content) {
+      console.log(data.choices[0].message.content, "final roast");
+      return NextResponse.json({ content: data.choices[0].message.content });
+    } else {
+      throw new Error("Unexpected response structure");
+    }
+  } catch (error) {
+    console.error("Error in roastthePost:", error);
+    return NextResponse.json(
+      { error: "An error occurred while processing your request" },
+      { status: 500 }
+    );
+  }
 }

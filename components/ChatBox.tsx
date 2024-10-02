@@ -117,7 +117,7 @@ export default function ChatBox() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= 50) {
+    if (e.target.value.length <= 100) {
       setUserInput(e.target.value);
     }
   };
@@ -176,13 +176,15 @@ export default function ChatBox() {
           <CarouselContent>
             {constantData.map((item, index) => (
               <CarouselItem key={item.id} className="">
-                <h1 className="text-xl font-bold mb-4">{item.name}</h1>
                 <Image
                   src={item.image}
                   alt={item.id.toString()}
                   width="500"
                   height="500"
                 />
+                <h1 className="text-xl font-bold mb-4 text-center">
+                  {item.name}
+                </h1>
               </CarouselItem>
             ))}
           </CarouselContent>

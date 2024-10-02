@@ -1,6 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Roast master
 
-## Getting Started
+Roast your friend on the internet. Add their titles, social media bios and more to generate roast from a popular internet celebrities. 
+
+# Tech stack
+
+- Next.js
+- Tailwind CSS
+- Gaianet AI (Public node to generate Roast - [link](https://www.gaianet.ai/chat) ) 
+- Eleven Labs to generate voice
+- Replicate open Source AI model for Lipsync and Video generation [link](https://replicate.com/devxpy/cog-wav2lip)
 
 First, run the development server:
 
